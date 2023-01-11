@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import App from "./App";
-import "./index.css";
+import "./index.scss";
 import "primereact/resources/themes/nova-accent/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
