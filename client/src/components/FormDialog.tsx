@@ -1,8 +1,10 @@
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
-import { Form, Field } from "react-final-form";
 import { Button } from "primereact/button";
+import { Form } from "react-final-form";
+
+import Field from "../utility/Field";
 
 import "./FormDialog.scss";
 
@@ -79,7 +81,7 @@ const FormDialog = ({
               <h1>{header}</h1>
               <Field
                 name="name"
-                render={({ input, meta }) => (
+                render={({ input, meta }: { input: any; meta: any }) => (
                   <div className="field form-field--wrapper">
                     <span className="p-float-label">
                       <InputText
@@ -104,7 +106,7 @@ const FormDialog = ({
               />
               <Field
                 name="surname"
-                render={({ input, meta }) => (
+                render={({ input, meta }: { input: any; meta: any }) => (
                   <div className="field form-field--wrapper">
                     <span className="p-float-label">
                       <InputText
@@ -129,7 +131,7 @@ const FormDialog = ({
               />
               <Field
                 name="city"
-                render={({ input }) => (
+                render={({ input }: { input: any }) => (
                   <div className="field form-field--wrapper">
                     <span className="p-float-label">
                       <InputText id="city" {...input} />
@@ -140,7 +142,7 @@ const FormDialog = ({
               />
               <Field
                 name="address"
-                render={({ input }) => (
+                render={({ input }: { input: any }) => (
                   <div className="field form-field--wrapper">
                     <span className="p-float-label">
                       <InputText id="address" {...input} />
@@ -151,7 +153,7 @@ const FormDialog = ({
               />
               <Field
                 name="phone"
-                render={({ input }) => (
+                render={({ input }: { input: any }) => (
                   <div className="field form-field--wrapper">
                     <span className="p-float-label">
                       <InputText id="phone" {...input} />
