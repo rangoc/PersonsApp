@@ -1,12 +1,30 @@
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { createSearchParams, useNavigate } from "react-router-dom";
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Button } from "primereact/button";
+
 import { RootState } from "../reducers/types";
 
-import "./personList.css";
+import CreatePerson from "./CreatePerson";
+import RemovePerson from "./RemovePerson";
+
+import "./PersonList.scss";
+import UpdatePerson from "./UpdatePerson";
 
 const PersonList = () => {
-  const personList = useSelector((state: RootState) => state.personList.data);
+  const personList = useSelector((state: RootState) => state.data.personList);
+  const navigate = useNavigate();
+
+  const [isCreatePersonDialogOpen, setIsCreatePersonDialogOpen] =
+    useState(false);
+
+  const [isRemovePersonDialogOpen, setIsRemovePersonDialogOpen] =
+    useState(false);
+
+  const removePersonRef = useRef("");
 
   const columns = [
     { field: "name", header: "Name" },
@@ -18,46 +36,75 @@ const PersonList = () => {
     {
       field: "",
       header: "Actions",
-      body: (rowData: any) => (
+      body: ({ _id }: { _id: string }) => (
         <div className="action-buttons">
-          <div className="p-col-6">
-            <button
-              className="p-button-raised p-button-success"
-              onClick={() => console.log("edit")}
-            >
-              <i className="pi pi-user-edit" />
-            </button>
-          </div>
-          <div className="p-col-6">
-            <button
-              className="p-button-raised p-button-danger"
-              onClick={() => console.log("delete")}
-            >
-              <i className="pi pi-trash" />
-            </button>
-          </div>
+          <Button
+            icon="pi pi-user-edit"
+            onClick={() =>
+              navigate({
+                pathname: "/",
+                search: createSearchParams({
+                  _id,
+                }).toString(),
+              })
+            }
+          />
+          <Button
+            icon="pi pi-trash"
+            className="p-button-danger"
+            onClick={() => {
+              removePersonRef.current = _id;
+              setIsRemovePersonDialogOpen(true);
+            }}
+          />
         </div>
       ),
     },
   ];
 
   return (
-    <DataTable
-      value={personList}
-      className="p-datatable-responsive"
-      header="List of Persons"
-      showGridlines
-      responsiveLayout="scroll"
-    >
-      {columns.map((col) => (
-        <Column
-          key={col.field}
-          field={col.field}
-          header={col.header}
-          body={col.body}
-        />
-      ))}
-    </DataTable>
+    <>
+      <DataTable
+        value={personList}
+        className="p-datatable-responsive"
+        header="Person List"
+        showGridlines
+        responsiveLayout="scroll"
+      >
+        {columns.map((col) => (
+          <Column
+            key={col.field}
+            field={col.field}
+            header={col.header}
+            body={col.body}
+          />
+        ))}
+      </DataTable>
+
+      <Button
+        onClick={() => setIsCreatePersonDialogOpen(true)}
+        icon="pi pi-plus"
+        iconPos="right"
+        label="Add a Person"
+      />
+
+      {/* CreatePerson modal */}
+      <CreatePerson
+        isDialogOpen={isCreatePersonDialogOpen}
+        setIsDialogOpen={setIsCreatePersonDialogOpen}
+      />
+
+      {/* RemovePerson modal */}
+      <RemovePerson
+        id={removePersonRef.current}
+        personList={personList}
+        isDialogOpen={isRemovePersonDialogOpen}
+        setIsDialogOpen={setIsRemovePersonDialogOpen}
+      />
+
+      {/* UpdatePerson modal */}
+      <UpdatePerson />
+    </>
   );
 };
 
