@@ -1,0 +1,55 @@
+.form-dialog__dialog {
+  max-width: 450px;
+  width: 100%;
+}
+
+.form--wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+.p-error {
+  position: absolute;
+  bottom: 0;
+}
+
+.form-field--wrapper {
+  padding: 1.25rem 0;
+  position: relative;
+  width: 100%;
+
+  span {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.form-dialog__button {
+  margin-top: 1.25rem !important;
+}
