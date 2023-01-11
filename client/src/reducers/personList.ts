@@ -11,12 +11,12 @@ export interface IPerson {
 }
 
 export interface IPersonListState {
-  data: IPerson[];
+  personList: IPerson[];
   loading: boolean;
 }
 
 const initialState: IPersonListState = {
-  data: [],
+  personList: [],
   loading: false,
 };
 
@@ -28,19 +28,21 @@ const personListSlice = createSlice({
       state.loading = true;
     },
     onFetchSuccess(state, action) {
-      state.data = action.payload;
+      state.personList = action.payload;
       state.loading = false;
     },
     createPerson(state, action) {
-      state.data = [...state.data, action.payload];
+      state.personList = [...state.personList, action.payload];
     },
     updatePerson(state, action) {
-      state.data = state.data.map((person) =>
-        person._id === action.payload.id ? action.payload : person
+      state.personList = state.personList.map((person) =>
+        person._id === action.payload._id ? action.payload : person
       );
     },
     removePerson(state, action) {
-      state.data = state.data.filter((person) => person._id !== action.payload);
+      state.personList = state.personList.filter(
+        (person) => person._id !== action.payload
+      );
     },
   },
 });

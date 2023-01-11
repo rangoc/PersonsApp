@@ -4,7 +4,7 @@ import personListReducer from "./reducers/personList";
 
 const store = configureStore({
   reducer: {
-    personList: personListReducer,
+    data: personListReducer,
   },
 });
 
